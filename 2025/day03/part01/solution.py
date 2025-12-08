@@ -22,7 +22,7 @@ def return_max_joltage(line: int) -> int:
     numberBeforeIndex = 0
     numberAfterIndex = 0
     lineBeforeIndex = line[:indexPlaceholder]
-    lineAfterIndex = line[indexPlaceholder:]
+    lineAfterIndex = line[indexPlaceholder+1:]
 
     for index, char in enumerate(lineBeforeIndex.strip()):
         number = int(char)
@@ -36,6 +36,7 @@ def return_max_joltage(line: int) -> int:
             numberAfterIndex = number
     outcomeTwo = int(str(highestNumberOne) + str(numberAfterIndex))
 
+    print(f'Line: {line.strip()}')
     print(f'Two outcomes. One: {outcomeOne} Two: {outcomeTwo}')
     print(f'Outcome: {max(outcomeOne, outcomeTwo)}')
 
