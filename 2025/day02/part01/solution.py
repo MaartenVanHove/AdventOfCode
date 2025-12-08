@@ -5,9 +5,7 @@ def main():
     idRanges = txtFile.read().strip().split(',')
 
     for idRange in idRanges:
-        idStartAndEnd = idRange.split('-')
-        idStart = int(idStartAndEnd[0])
-        idEnd = int(idStartAndEnd[1])
+        idStart, idEnd = map(int, idRange.split('-'))
 
         for num in range(idStart, idEnd + 1):
             id = str(num)
