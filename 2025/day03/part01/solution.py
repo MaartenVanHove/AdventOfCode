@@ -1,44 +1,47 @@
 # Each line in the input corresponds to a single bank of batteries
-# In each bank, you need to turn on excatly two batteries.
+# In each bank, you need to turn on exactly two batteries.
 
 def main():
+    total_output = 0
+    rows = 0
     with open('2025/day03/input.txt') as txtFile:
-        count = 0
         for line in txtFile:
-            count += return_max_joltage(line)
-            print(count)
+            bank_joltage = return_max_joltage(line)
+            total_output += bank_joltage
+            rows += 1
 
-        print(f'Password {count}')   
+    print(f'Total output joltage (Password): {total_output}')   
+    print(f'Rows: {rows}')
 
-def return_max_joltage(line: int) -> int:
+def return_max_joltage(line: str) -> int:
+    line = line.strip()
+    
     highestNumberOne = 0
     indexPlaceholder = 0
-    for index, char in enumerate(line.strip()):
+    for index, char in enumerate(line):
         number = int(char)
         if number > highestNumberOne:
             indexPlaceholder = index
             highestNumberOne = number
 
-    numberBeforeIndex = 0
-    numberAfterIndex = 0
     lineBeforeIndex = line[:indexPlaceholder]
     lineAfterIndex = line[indexPlaceholder+1:]
 
-    for index, char in enumerate(lineBeforeIndex.strip()):
-        number = int(char)
-        if(number > numberBeforeIndex):
-            numberBeforeIndex = number
-    outcomeOne = int(str(numberBeforeIndex) + str(highestNumberOne))
+    if lineBeforeIndex:
+        numberBeforeIndex = max(int(c) for c in lineBeforeIndex)
+        outcomeOne = int(str(numberBeforeIndex) + str(highestNumberOne))
+    else:
+        outcomeOne = 0 
 
-    for index, char in enumerate(lineAfterIndex.strip()):
-        number = int(char)
-        if number > numberAfterIndex:
-            numberAfterIndex = number
-    outcomeTwo = int(str(highestNumberOne) + str(numberAfterIndex))
+    if lineAfterIndex:
+        numberAfterIndex = max(int(c) for c in lineAfterIndex)
+        outcomeTwo = int(str(highestNumberOne) + str(numberAfterIndex))
+    else:
+        outcomeTwo = 0  
 
-    print(f'Line: {line.strip()}')
+    print(f'Line: {line}')
     print(f'Two outcomes. One: {outcomeOne} Two: {outcomeTwo}')
-    print(f'Outcome: {max(outcomeOne, outcomeTwo)}')
+    print(f'Max outcome for this line: {max(outcomeOne, outcomeTwo)}\n')
 
     return max(outcomeOne, outcomeTwo)
 
