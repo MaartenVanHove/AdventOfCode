@@ -3,15 +3,12 @@
 
 def main():
     total_output = 0
-    rows = 0
     with open('2025/day03/input.txt') as txtFile:
         for line in txtFile:
             bank_joltage = return_max_joltage(line)
-            total_output += bank_joltage
-            rows += 1
+            total_jotage += bank_joltage
 
     print(f'Total output joltage (Password): {total_output}')   
-    print(f'Rows: {rows}')
 
 def return_max_joltage(line: str) -> int:
     line = line.strip()
@@ -39,9 +36,8 @@ def return_max_joltage(line: str) -> int:
     else:
         outcomeTwo = 0  
 
-    print(f'Line: {line}')
-    print(f'Two outcomes. One: {outcomeOne} Two: {outcomeTwo}')
-    print(f'Max outcome for this line: {max(outcomeOne, outcomeTwo)}\n')
+    if outcomeOne > outcomeTwo:
+        print(outcomeOne)
 
     return max(outcomeOne, outcomeTwo)
 
